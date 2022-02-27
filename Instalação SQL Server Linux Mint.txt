@@ -1,0 +1,57 @@
+========================================================================================
+                           INSTALANDO SQL SERVER NO LINUX MINT
+========================================================================================
+Ref: https://tabernatech.com.br/instalando-sql-server-2019-no-linux-mint-20/
+
+Digite os seguintes comandos:
+
+1- Primeiro passo - Atualizar o sistema
+
+sudo apt-get update -y
+sudo apt-get upgrade -y
+-------------------------------------------------------------------------------
+
+Segundo passo - Configurar repositório - Adicionar chaes GPG da microsoft
+
+sudo wget -qO- 
+https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+-------------------------------------------------------------------------------
+
+Terceiro passo - Adicionar repositório MS SQL SERVER
+
+sudo add-apt-repository "$(wget -qO- 
+https://packages.microsoft.com/config/ubuntu/18.04/mssql-server-2019.list)"
+-------------------------------------------------------------------------------
+
+quarto passo - Faça um update e Instale o SQL SERVER
+
+sudo apt-get update -y 
+sudo apt-get install mssql-server
+-------------------------------------------------------------------------------
+
+quinto passo - Configurando o Microsoft SQL Server
+
+sudo /opt/mssql/bin/mssql-conf setup
+
+Escolha a opção 2 - Versão free developer
+Escolha a opção 8 português
+
+sudo systemctl status mssql-server
+-------------------------------------------------------------------------------
+
+Sexto passo - Instalação SQL COMMAND LINE TOOLS no linux Mint
+
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add –
+curl https://packages.microsoft.com/config/ubuntu/19.10/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+sudo apt update
+sudo apt install mssql-tools
+
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile 
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
+source ~/.bashrc
+-------------------------------------------------------------------------------
+
+Setimo passo - Conectar ao banco de dados
+
+sqlcmd -S localhost -U SA -P
+Vai solicitar a senha do SA
